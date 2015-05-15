@@ -1,4 +1,3 @@
-import akka.actor.Actor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
@@ -14,7 +13,7 @@ public class WalletMain {
     Wallet wallet = new Wallet();
     Config config = ConfigFactory.load().getConfig("ServerSys");
     ActorSystem actorSystem = ActorSystem.create("wallet", config);
-    Props props = new Props(WalletActor.class);
+    Props props = new Props(WalletServerActor.class);
     ActorRef server = actorSystem.actorOf(props, "walletKeeper");
   }
 }

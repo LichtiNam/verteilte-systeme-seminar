@@ -19,9 +19,11 @@ public class WalletClient {
     ActorSystem system = ActorSystem.create("wallet", config);
     ActorRef server =
             system.actorFor("akka://wallet@127.0.0.1:2552/user/walletKeeper");
-    server.tell(new AddEuroEvent(4), null);
-    server.tell(new AddMoneyEvent(10, 80), null);
-    server.tell(new RemoveMoneyEvent(8, 10), null);
-    server.tell(new AddCentEvent(860), null);
+    Props props = new Props(WalletClientActor.class);
+    ActorRef client = system.actorOf(props);
+    server.tell(new AddEuroEvent(4), client);
+    server.tell(new RemoveMoneyEvent(8, 10), client);
+
+
   }
 }

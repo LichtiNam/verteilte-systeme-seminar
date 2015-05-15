@@ -4,16 +4,16 @@ import events.*;
 /**
  * Created by dennish on 15/05/15.
  */
-public class WalletActor extends UntypedActor {
+public class WalletServerActor extends UntypedActor {
 
   private Wallet wallet;
 
-  public WalletActor() {
+  public WalletServerActor() {
     this.wallet = new Wallet();
   }
 
   @Override
-  public void onReceive(Object messages) throws Exception {
+  public void onReceive(Object messages) {
     MoneyEvent moneyEvent = (MoneyEvent) messages;
     if (messages instanceof AddMoneyEvent) {
       messageToConsole();
@@ -22,7 +22,11 @@ public class WalletActor extends UntypedActor {
     }
     if (messages instanceof RemoveMoneyEvent) {
       messageToConsole();
-      wallet.removeMoney(moneyEvent.getEuro(), moneyEvent.getCent());
+      try {
+        wallet.removeMoney(moneyEvent.getEuro(), moneyEvent.getCent());
+      } catch (NotEnoughMoneyException e) {
+        getSender().tell(e.getMessage());
+      }
       messageToConsole();
     }
     if (messages instanceof AddEuroEvent) {
@@ -32,7 +36,11 @@ public class WalletActor extends UntypedActor {
     }
     if (messages instanceof RemoveEuroEvent) {
       messageToConsole();
-      wallet.removeEuro(moneyEvent.getEuro());
+      try {
+        wallet.removeEuro(moneyEvent.getEuro());
+      } catch (NotEnoughMoneyException e) {
+        getSender().tell(e.getMessage());
+      }
       messageToConsole();
     }
     if (messages instanceof AddCentEvent) {
@@ -42,7 +50,11 @@ public class WalletActor extends UntypedActor {
     }
     if (messages instanceof RemoveCentEvent) {
       messageToConsole();
-      wallet.removeCent(moneyEvent.getCent());
+      try {
+        wallet.removeCent(moneyEvent.getCent());
+      } catch (NotEnoughMoneyException e) {
+        getSender().tell(e.getMessage());
+      }
       messageToConsole();
     }
   }

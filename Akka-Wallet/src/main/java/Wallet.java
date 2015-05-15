@@ -38,24 +38,24 @@ public class Wallet {
     addCent(cent);
   }
 
-  public void removeCent(int cents) throws Exception {
+  public void removeCent(int cents) throws NotEnoughMoneyException {
     int totalMoneyInCent = euro * 100 + cent;
     if (totalMoneyInCent < cents) {
-      throw new Exception();
+      throw new NotEnoughMoneyException("To less money!");
     }
     euro = 0;
     cent = 0;
     addCent(totalMoneyInCent - cents);
   }
 
-  public void removeEuro(int euros) throws Exception {
+  public void removeEuro(int euros) throws NotEnoughMoneyException {
     if (euro < euros) {
-      throw new Exception();
+      throw new NotEnoughMoneyException("To less money!");
     }
     euro -= euros;
   }
 
-  public void removeMoney(int euros, int cents) throws Exception {
+  public void removeMoney(int euros, int cents) throws NotEnoughMoneyException {
     removeEuro(euros);
     removeCent(cents);
   }
