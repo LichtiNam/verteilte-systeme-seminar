@@ -21,9 +21,7 @@ public class WalletClient {
             system.actorFor("akka://wallet@127.0.0.1:2552/user/walletKeeper");
     Props props = new Props(WalletClientActor.class);
     ActorRef client = system.actorOf(props);
-    server.tell(new AddEuroEvent(4), client);
+    server.tell(new AddEuroEvent(8), client);
     server.tell(new RemoveMoneyEvent(8, 10), client);
-
-
   }
 }
