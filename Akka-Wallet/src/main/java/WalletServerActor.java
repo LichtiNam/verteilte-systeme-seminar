@@ -8,7 +8,7 @@ public class WalletServerActor extends UntypedActor {
 
   private Wallet wallet;
 
-  public WalletServerActor() {
+  public void preStart() {
     this.wallet = new Wallet();
   }
 
@@ -56,6 +56,8 @@ public class WalletServerActor extends UntypedActor {
         getSender().tell(e.getMessage());
       }
       messageToConsole();
+    } else {
+      unhandled(messages);
     }
   }
 
