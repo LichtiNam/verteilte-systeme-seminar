@@ -56,10 +56,10 @@ public class Wallet {
   }
 
   public void removeMoney(int euros, int cents) throws NotEnoughMoneyException {
-    if ((euro * 100 + cent) < (euros * 100 + cents)) {
+    int totalRemoveCent = euros * 100 + cents;
+    if ((euro * 100 + cent) < totalRemoveCent) {
       throw new NotEnoughMoneyException("To less money!");
     }
-    removeEuro(euros);
-    removeCent(cents);
+    removeCent(totalRemoveCent);
   }
 }
