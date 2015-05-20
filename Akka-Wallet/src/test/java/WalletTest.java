@@ -1,5 +1,7 @@
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -8,13 +10,16 @@ public class WalletTest {
 
   private Wallet wallet;
 
+  @Rule
+  public ExpectedException exception = ExpectedException.none();
+
   @Before
   public void init() {
     wallet = new Wallet(4, 230);
   }
 
   @Test
-  public void testInitMony() {
+  public void testInitMoney() {
     Wallet wallet = new Wallet(4, 230);
     assertEquals(wallet.getEuro(), 6);
     assertEquals(wallet.getCent(), 30);
@@ -70,5 +75,11 @@ public class WalletTest {
     wallet.removeMoney(2, 150);
     assertEquals(wallet.getEuro(), 2);
     assertEquals(wallet.getCent(), 80);
+  }
+
+  @Test
+  public void testNotEnoughMoneyException() throws NotEnoughMoneyException{
+    exception.expect(NotEnoughMoneyException.class);
+    wallet.removeMoney(6, 40);
   }
 }
