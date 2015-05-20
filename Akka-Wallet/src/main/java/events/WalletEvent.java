@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by dennish on 15/05/15.
  */
-public class MoneyEvent implements Serializable {
+public class WalletEvent implements Serializable {
 
   private int euro;
   private int cent;
 
-  public MoneyEvent(int euro, int cent) {
+  public WalletEvent(int euro, int cent) {
     this.euro = euro;
     this.cent = cent;
   }

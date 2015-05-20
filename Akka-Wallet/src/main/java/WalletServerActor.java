@@ -13,51 +13,51 @@ public class WalletServerActor extends UntypedActor {
   }
 
   @Override
-  public void onReceive(Object messages) {
-    MoneyEvent moneyEvent = (MoneyEvent) messages;
-    if (messages instanceof AddMoneyEvent) {
+  public void onReceive(Object message) {
+    WalletEvent walletEvent = (WalletEvent) message;
+    if (message instanceof AddMoneyEvent) {
       messageToConsole();
-      wallet.addMoney(moneyEvent.getEuro(), moneyEvent.getCent());
+      wallet.addMoney(walletEvent.getEuro(), walletEvent.getCent());
       messageToConsole();
     }
-    if (messages instanceof RemoveMoneyEvent) {
+    if (message instanceof RemoveMoneyEvent) {
       messageToConsole();
       try {
-        wallet.removeMoney(moneyEvent.getEuro(), moneyEvent.getCent());
+        wallet.removeMoney(walletEvent.getEuro(), walletEvent.getCent());
       } catch (NotEnoughMoneyException e) {
         getSender().tell(e.getMessage());
       }
       messageToConsole();
     }
-    if (messages instanceof AddEuroEvent) {
+    if (message instanceof AddEuroEvent) {
       messageToConsole();
-      wallet.addEuro(moneyEvent.getEuro());
+      wallet.addEuro(walletEvent.getEuro());
       messageToConsole();
     }
-    if (messages instanceof RemoveEuroEvent) {
+    if (message instanceof RemoveEuroEvent) {
       messageToConsole();
       try {
-        wallet.removeEuro(moneyEvent.getEuro());
+        wallet.removeEuro(walletEvent.getEuro());
       } catch (NotEnoughMoneyException e) {
         getSender().tell(e.getMessage());
       }
       messageToConsole();
     }
-    if (messages instanceof AddCentEvent) {
+    if (message instanceof AddCentEvent) {
       messageToConsole();
-      wallet.addCent(moneyEvent.getCent());
+      wallet.addCent(walletEvent.getCent());
       messageToConsole();
     }
-    if (messages instanceof RemoveCentEvent) {
+    if (message instanceof RemoveCentEvent) {
       messageToConsole();
       try {
-        wallet.removeCent(moneyEvent.getCent());
+        wallet.removeCent(walletEvent.getCent());
       } catch (NotEnoughMoneyException e) {
         getSender().tell(e.getMessage());
       }
       messageToConsole();
     } else {
-      unhandled(messages);
+      unhandled(message);
     }
   }
 

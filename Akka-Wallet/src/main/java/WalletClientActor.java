@@ -11,6 +11,8 @@ public class WalletClientActor extends UntypedActor {
 
     if (message instanceof String) {
       System.out.println(message);
+    } else {
+      unhandled(message);
     }
   }
 }
