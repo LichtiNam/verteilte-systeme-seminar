@@ -56,7 +56,10 @@ public class WalletServerActor extends UntypedActor {
         getSender().tell(e.getMessage());
       }
       messageToConsole();
-    } else {
+    }
+    if (message.equals("HowMuch")) {
+      getSender().tell(new TotalMoneyEvent(wallet.getEuro(), wallet.getCent()));
+    }else {
       unhandled(message);
     }
   }
